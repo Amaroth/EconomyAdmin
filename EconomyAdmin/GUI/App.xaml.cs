@@ -15,8 +15,9 @@ namespace EconomyAdmin.GUI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var mwd = new MainWindow();
-            mwd.Show();
+            var login = new LoginWindow();
+            login.Load();
+            login.Show();
         }
     }
 }

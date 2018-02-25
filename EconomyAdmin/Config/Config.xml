@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Neupravovat!!!-->
+<Config>
+  <host>127.0.0.1</host>
+  <database>economy</database>
+  <port>3306</port>
+  <userLogin></userLogin>
+  <userPassword></userPassword>
+  <companyID>-1</companyID>
+</Config>
