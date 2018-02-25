@@ -96,35 +96,60 @@ namespace EconomyAdmin.Core
         /// <returns>Error code. 0=OK, 1=InvalidCredentials, 2=AccountBanned, 3=IPBanned, 4=CheckFailed</returns>
         public int IsUserValid(SecureString login, SecureString password)
         {
-            //try
+            try
             {
                 accountID = -1;
                 CompanyID = -1;
                 /// NIY:
-                // Can connect?
-                // Account+password exists?
-                // Is account not banned?
                 // Is IP not banned?
                 connectionAuth.Open();
 
+                // Are provided credentials OK?
                 var query = new MySqlCommand(string.Format(@"SELECT id FROM account WHERE sha_pass_hash=SHA1(CONCAT('{0}', ':', '{1}'));",
-                    Utilities.ToInsecureString(login), Utilities.ToInsecureString(password)), connectionAuth);
+                    Utilities.ToInsecureString(login).ToUpper(), Utilities.ToInsecureString(password).ToUpper()), connectionAuth);
                 using (var r = query.ExecuteReader())
                 {
                     if (r.Read())
                         accountID = Convert.ToInt32(r[0]);
                     else
                     {
+                        accountID = -1;
                         connectionAuth.Close();
                         return 1;
                     }
                 }
 
-                connectionAuth.Close();
+                // Is account currently not banned?
+                var query2 = new MySqlCommand(string.Format(@"SELECT id FROM account_banned WHERE active=1 AND id={0};",
+                    accountID), connectionAuth);
+                using (var r = query2.ExecuteReader())
+                {
+                    if (r.Read())
+                    {
+                        accountID = -1;
+                        connectionAuth.Close();
+                        return 2;
+                    }
+                }
 
+                // Is IP currently not banned?
+                var query3 = new MySqlCommand(@"SELECT ip FROM ip_banned
+JOIN information_schema.processlist ON ip_banned.ip=SUBSTRING_INDEX(HOST,':',1)
+WHERE ID=CONNECTION_ID() AND unbandate > UNIX_TIMESTAMP(CURRENT_TIMESTAMP);", connectionAuth);
+                using (var r = query3.ExecuteReader())
+                {
+                    if (r.Read())
+                    {
+                        accountID = -1;
+                        connectionAuth.Close();
+                        return 3;
+                    }
+                }
+
+                connectionAuth.Close();
                 return 0;
             }
-            //catch { return 4; }
+            catch { return 4; }
         }
 
         public Dictionary<string, int> GetAvailableCompanies()
@@ -137,9 +162,7 @@ namespace EconomyAdmin.Core
 FROM user_company_access
 JOIN `user` ON user.accountid = user_company_access.user_accountid
 JOIN company ON company.id = user_company_access.company_id
-WHERE `user`.isvalid = 1
-AND company.isvalid = 1
-AND `user`.accountid = {0};", accountID), connectionEconomy);
+WHERE `user`.isvalid = 1 AND company.isvalid = 1 AND `user`.accountid = {0};", accountID), connectionEconomy);
                 using (var r = query.ExecuteReader())
                 {
                     while (r.Read())
