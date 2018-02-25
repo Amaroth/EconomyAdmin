@@ -9,6 +9,5 @@
   <portAuth>3306</portAuth>
   <userLogin></userLogin>
   <userPassword></userPassword>
-  <saveCredentials>true</saveCredentials>
-  <companyID>-1</companyID>
+  <saveCredentials>true</saveCredentials>>
 </Config>

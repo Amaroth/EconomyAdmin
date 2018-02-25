@@ -39,7 +39,6 @@ namespace EconomyAdmin.Core
         public SecureString userLogin;
         public SecureString userPassword;
         public bool saveCredentials;
-        public int companyID;
 
         public SecureString sqlLoginAuth = Utilities.ToSecureString("economy_test");
         public SecureString sqlPasswordAuth = Utilities.ToSecureString("economy");
@@ -72,11 +71,10 @@ namespace EconomyAdmin.Core
                 userLogin = Utilities.DecryptString(xml.GetElementsByTagName("userLogin")[0].InnerText);
                 userPassword = Utilities.DecryptString(xml.GetElementsByTagName("userPassword")[0].InnerText);
                 saveCredentials = xml.GetElementsByTagName("saveCredentials")[0].InnerText.ToString().ToLower() == "true";
-                companyID = int.Parse(xml.GetElementsByTagName("companyID")[0].InnerText);
             }
-            catch (Exception e)
+            catch
             {
-                MessageBox.Show("Chyba při pokusu o otevření a načtení konfiguračního souboru. Zkuste znovu stáhnout aplikaci.\n\n" + e.ToString());
+                MessageBox.Show("Chyba při pokusu o otevření a načtení konfiguračního souboru. Zkus znovu stáhnout aplikaci.");
                 throw;
             }
         }
@@ -99,10 +97,6 @@ namespace EconomyAdmin.Core
                     xml.GetElementsByTagName("userPassword")[0].InnerText = Utilities.EncryptString(userPassword);
                 else
                     xml.GetElementsByTagName("userPassword")[0].InnerText = "";
-                if (saveCredentials)
-                    xml.GetElementsByTagName("companyID")[0].InnerText = companyID.ToString();
-                else
-                    xml.GetElementsByTagName("companyID")[0].InnerText = "-1";
 
                 xml.Save(tw);
                 tw.Close();

@@ -5,15 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Height="280" Width="400" ResizeMode="NoResize">
+        Height="335" Width="400" ResizeMode="NoResize">
     <DockPanel Margin="10,0,10,5">
         <Label DockPanel.Dock="Top" Content="_Login:" Target="{Binding ElementName=loginBox}" />
-        <TextBox DockPanel.Dock="Top" Name="loginBox" Height="25"/>
+        <TextBox DockPanel.Dock="Top" Name="loginBox" Height="25">
+            <TextBox.ToolTip>
+                <TextBlock TextWrapping="Wrap" MaxWidth="300">Tvůj login do hry.</TextBlock>
+            </TextBox.ToolTip>
+        </TextBox>
         <Label DockPanel.Dock="Top" Content="_Heslo:" Target="{Binding ElementName=passBox}" />
-        <PasswordBox DockPanel.Dock="Top" Name="passBox" Height="25"/>
-        <Label DockPanel.Dock="Top" Content="_Společnost:" Target="{Binding ElementName=companyBox}" />
-        <ComboBox DockPanel.Dock="Top" Name="companyBox" Height="25"/>
-        <CheckBox DockPanel.Dock="Top" Name="saveCredsBox" Content="Zapamatovat údaje" Margin="0,5,0,15"/>
-        <Button Name="loginButt" Content="Přihlásit" Click="loginButt_Click"/>
+        <PasswordBox DockPanel.Dock="Top" Name="passBox" Height="25">
+            <PasswordBox.ToolTip>
+                <TextBlock TextWrapping="Wrap" MaxWidth="300">Tvoje heslo do hry.</TextBlock>
+            </PasswordBox.ToolTip>
+        </PasswordBox>
+        <Button DockPanel.Dock="Top" Name="loginAuthButt" Content="Přihlásit se na WoW účet" Click="loginAuthButt_Click" Height="30" Margin="0,5,0,0"/>
+        <TextBlock DockPanel.Dock="Top" Name="notificationText" TextAlignment="Center" FontWeight="Bold" Margin="0,5,0,5">Prosím, přihlaš se výše.</TextBlock>
+
+
+        <Label DockPanel.Dock="Top" Name="companyLabel" Content="_Společnost:" Target="{Binding ElementName=companyBox}" IsEnabled="False"/>
+        <ComboBox DockPanel.Dock="Top" Name="companyBox" Height="25" IsEnabled="False">
+            <ComboBox.ToolTip>
+                <TextBlock TextWrapping="Wrap" MaxWidth="300">Společnost, kterou chceš spravovat. Na výběr jsou ty, ke kterým máš udělen přístup.</TextBlock>
+            </ComboBox.ToolTip>
+        </ComboBox>
+        <CheckBox DockPanel.Dock="Top" Name="saveCredsBox" Content="Zapamatovat údaje" Margin="0,5,0,5" IsEnabled="False">
+            <CheckBox.ToolTip>
+                <TextBlock TextWrapping="Wrap" MaxWidth="300">Pokud bude zaškrtnuto, přihlašovací údaje zde vyplněné budou šifrovaně uloženy.</TextBlock>
+            </CheckBox.ToolTip>
+        </CheckBox>
+        <Button Name="loginEcoButt" Content="Pokračovat do společnosti" Click="loginEcoButt_Click" IsEnabled="False"/>
     </DockPanel>
 </Window>
