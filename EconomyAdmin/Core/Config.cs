@@ -28,18 +28,18 @@ namespace EconomyAdmin.Core
 
         private XmlDocument xml = new XmlDocument();
 
-        public string hostEconomy = "127.0.0.1";
-        public string databaseEconomy = "economy";
-        public int portEconomy = 3306;
+        public string hostEconomy;
+        public string databaseEconomy;
+        public int portEconomy;
 
-        public string hostAuth = "127.0.0.1";
-        public string databaseAuth = "auth";
-        public int portAuth = 3306;
+        public string hostAuth;
+        public string databaseAuth;
+        public int portAuth;
 
-        public SecureString userLogin = Utilities.ToSecureString("");
-        public SecureString userPassword = Utilities.ToSecureString("");
-        public bool saveCredentials = false;
-        public int companyID = -1;
+        public SecureString userLogin;
+        public SecureString userPassword;
+        public bool saveCredentials;
+        public int companyID;
 
         public SecureString sqlLoginAuth = Utilities.ToSecureString("economy_test");
         public SecureString sqlPasswordAuth = Utilities.ToSecureString("economy");
@@ -90,18 +90,19 @@ namespace EconomyAdmin.Core
                 Directory.CreateDirectory("Config");
             using (TextWriter tw = new StreamWriter("Config/Config.xml", false, Encoding.UTF8))
             {
-                xml.GetElementsByTagName("hostEconomy")[0].InnerText = hostEconomy;
-                xml.GetElementsByTagName("database")[0].InnerText = databaseEconomy;
-                xml.GetElementsByTagName("portEconomy")[0].InnerText = portEconomy.ToString();
-
-                xml.GetElementsByTagName("hostAuth")[0].InnerText = hostAuth;
-                xml.GetElementsByTagName("databaseAuth")[0].InnerText = databaseAuth;
-                xml.GetElementsByTagName("portAuth")[0].InnerText = portAuth.ToString();
-
-                xml.GetElementsByTagName("userLogin")[0].InnerText = userLogin.ToString();
-                xml.GetElementsByTagName("userPassword")[0].InnerText = userPassword.ToString();
                 xml.GetElementsByTagName("saveCredentials")[0].InnerText = saveCredentials.ToString();
-                xml.GetElementsByTagName("companyID")[0].InnerText = companyID.ToString();
+                if (saveCredentials)
+                    xml.GetElementsByTagName("userLogin")[0].InnerText = Utilities.EncryptString(userLogin);
+                else
+                    xml.GetElementsByTagName("userLogin")[0].InnerText = "";
+                if (saveCredentials)
+                    xml.GetElementsByTagName("userPassword")[0].InnerText = Utilities.EncryptString(userPassword);
+                else
+                    xml.GetElementsByTagName("userPassword")[0].InnerText = "";
+                if (saveCredentials)
+                    xml.GetElementsByTagName("companyID")[0].InnerText = companyID.ToString();
+                else
+                    xml.GetElementsByTagName("companyID")[0].InnerText = "-1";
 
                 xml.Save(tw);
                 tw.Close();

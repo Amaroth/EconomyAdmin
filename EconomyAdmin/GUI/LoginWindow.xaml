@@ -8,12 +8,12 @@
         Height="280" Width="400" ResizeMode="NoResize">
     <DockPanel Margin="10,0,10,5">
         <Label DockPanel.Dock="Top" Content="_Login:" Target="{Binding ElementName=loginBox}" />
-        <TextBox DockPanel.Dock="Top" Name="loginBox" Height="25" />
+        <TextBox DockPanel.Dock="Top" Name="loginBox" Height="25"/>
         <Label DockPanel.Dock="Top" Content="_Heslo:" Target="{Binding ElementName=passBox}" />
-        <PasswordBox DockPanel.Dock="Top" Name="passBox" Height="25" />
+        <PasswordBox DockPanel.Dock="Top" Name="passBox" Height="25"/>
         <Label DockPanel.Dock="Top" Content="_Společnost:" Target="{Binding ElementName=companyBox}" />
         <ComboBox DockPanel.Dock="Top" Name="companyBox" Height="25"/>
-        <CheckBox DockPanel.Dock="Top" Content="Zapamatovat údaje" IsChecked="True" Margin="0,5,0,15"/>
-        <Button Content="Přihlásit" />
+        <CheckBox DockPanel.Dock="Top" Name="saveCredsBox" Content="Zapamatovat údaje" Margin="0,5,0,15"/>
+        <Button Name="loginButt" Content="Přihlásit" Click="loginButt_Click"/>
     </DockPanel>
 </Window>
