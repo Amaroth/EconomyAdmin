@@ -96,19 +96,35 @@ namespace EconomyAdmin.Core
         /// <returns>Error code. 0=OK, 1=InvalidCredentials, 2=AccountBanned, 3=IPBanned, 4=CheckFailed</returns>
         public int IsUserValid(SecureString login, SecureString password)
         {
-            try
+            //try
             {
                 accountID = -1;
-                companyID = -1;
+                CompanyID = -1;
                 /// NIY:
                 // Can connect?
                 // Account+password exists?
                 // Is account not banned?
                 // Is IP not banned?
-                accountID = 1;
+                connectionAuth.Open();
+
+                var query = new MySqlCommand(string.Format(@"SELECT id FROM account WHERE sha_pass_hash=SHA1(CONCAT('{0}', ':', '{1}'));",
+                    Utilities.ToInsecureString(login), Utilities.ToInsecureString(password)), connectionAuth);
+                using (var r = query.ExecuteReader())
+                {
+                    if (r.Read())
+                        accountID = Convert.ToInt32(r[0]);
+                    else
+                    {
+                        connectionAuth.Close();
+                        return 1;
+                    }
+                }
+
+                connectionAuth.Close();
+
                 return 0;
             }
-            catch { return 4; }
+            //catch { return 4; }
         }
 
         public Dictionary<string, int> GetAvailableCompanies()
@@ -143,7 +159,10 @@ AND `user`.accountid = {0};", accountID), connectionEconomy);
 
         public void ReloadCompany()
         {
+            if (companyID > 0)
+            {
 
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace EconomyAdmin.GUI
         private void loginAuthButt_Click(object sender, RoutedEventArgs e)
         {
             DisableCompanySection();
-            var errCode = conn.IsUserValid(conf.userLogin, conf.userPassword);
+            var errCode = conn.IsUserValid(Utilities.ToSecureString(loginBox.Text), Utilities.ToSecureString(passBox.Password));
             if (errCode == 0)
             {
                 companies = conn.GetAvailableCompanies();

@@ -5,7 +5,7 @@
   <databaseEconomy>economy</databaseEconomy>
   <portEconomy>3306</portEconomy>
   <hostAuth>127.0.0.1</hostAuth>
-  <databaseAuth>economy</databaseAuth>
+  <databaseAuth>gothic_auth</databaseAuth>
   <portAuth>3306</portAuth>
   <userLogin></userLogin>
   <userPassword></userPassword>
