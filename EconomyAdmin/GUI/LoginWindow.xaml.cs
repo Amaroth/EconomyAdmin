@@ -1,6 +1,9 @@
 ﻿using EconomyAdmin.Core;
 using System.Collections.Generic;
 using System.Windows;
+using MySql.Data.MySqlClient;
+using System;
+using System.Security;
 
 namespace EconomyAdmin.GUI
 {
@@ -11,14 +14,13 @@ namespace EconomyAdmin.GUI
     {
         public LoginWindow()
         {
+            Connector.Instance.ValidateVersion();
             InitializeComponent();
         }
 
         internal void Load()
         {
             Title = string.Format("EconomyAdmin {0} - Přihlášení", Config.Instance.version);
-            companyBox.Items.Add("test");
-            companyBox.Items.Add("test2");
         }
     }
 }

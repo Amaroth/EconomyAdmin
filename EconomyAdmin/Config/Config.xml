@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--Neupravovat!!!-->
 <Config>
-  <host>127.0.0.1</host>
-  <database>economy</database>
-  <port>3306</port>
+  <hostEconomy>127.0.0.1</hostEconomy>
+  <databaseEconomy>economy</databaseEconomy>
+  <portEconomy>3306</portEconomy>
+  <hostAuth>127.0.0.1</hostAuth>
+  <databaseAuth>economy</databaseAuth>
+  <portAuth>3306</portAuth>
   <userLogin></userLogin>
   <userPassword></userPassword>
+  <saveCredentials>false</saveCredentials>
   <companyID>-1</companyID>
 </Config>

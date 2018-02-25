@@ -28,16 +28,23 @@ namespace EconomyAdmin.Core
 
         private XmlDocument xml = new XmlDocument();
 
-        public string host = "127.0.0.1";
-        public string database = "economy";
-        public int port = 3306;
+        public string hostEconomy = "127.0.0.1";
+        public string databaseEconomy = "economy";
+        public int portEconomy = 3306;
+
+        public string hostAuth = "127.0.0.1";
+        public string databaseAuth = "auth";
+        public int portAuth = 3306;
 
         public SecureString userLogin = Utilities.ToSecureString("");
         public SecureString userPassword = Utilities.ToSecureString("");
+        public bool saveCredentials = false;
         public int companyID = -1;
 
-        public SecureString sqlLogin = Utilities.ToSecureString("economy_test");
-        public SecureString sqlPassword = Utilities.ToSecureString("economy");
+        public SecureString sqlLoginAuth = Utilities.ToSecureString("economy_test");
+        public SecureString sqlPasswordAuth = Utilities.ToSecureString("economy");
+        public SecureString sqlLoginEconomy = Utilities.ToSecureString("economy_test");
+        public SecureString sqlPasswordEconomy = Utilities.ToSecureString("economy");
         public string version = "1.0.0";
 
         /// <summary>
@@ -54,12 +61,17 @@ namespace EconomyAdmin.Core
                     xml.LoadXml(xmlString);
                 }
 
-                host = xml.GetElementsByTagName("host")[0].InnerText;
-                database = xml.GetElementsByTagName("database")[0].InnerText;
-                port = int.Parse(xml.GetElementsByTagName("port")[0].InnerText);
+                hostEconomy = xml.GetElementsByTagName("hostEconomy")[0].InnerText;
+                databaseEconomy = xml.GetElementsByTagName("databaseEconomy")[0].InnerText;
+                portEconomy = int.Parse(xml.GetElementsByTagName("portEconomy")[0].InnerText);
+
+                hostAuth = xml.GetElementsByTagName("hostAuth")[0].InnerText;
+                databaseAuth = xml.GetElementsByTagName("databaseAuth")[0].InnerText;
+                portAuth = int.Parse(xml.GetElementsByTagName("portAuth")[0].InnerText);
 
                 userLogin = Utilities.DecryptString(xml.GetElementsByTagName("userLogin")[0].InnerText);
                 userPassword = Utilities.DecryptString(xml.GetElementsByTagName("userPassword")[0].InnerText);
+                saveCredentials = xml.GetElementsByTagName("saveCredentials")[0].InnerText.ToString().ToLower() == "true";
                 companyID = int.Parse(xml.GetElementsByTagName("companyID")[0].InnerText);
             }
             catch (Exception e)
@@ -78,12 +90,17 @@ namespace EconomyAdmin.Core
                 Directory.CreateDirectory("Config");
             using (TextWriter tw = new StreamWriter("Config/Config.xml", false, Encoding.UTF8))
             {
-                xml.GetElementsByTagName("host")[0].InnerText = host;
-                xml.GetElementsByTagName("database")[0].InnerText = database;
-                xml.GetElementsByTagName("port")[0].InnerText = port.ToString();
+                xml.GetElementsByTagName("hostEconomy")[0].InnerText = hostEconomy;
+                xml.GetElementsByTagName("database")[0].InnerText = databaseEconomy;
+                xml.GetElementsByTagName("portEconomy")[0].InnerText = portEconomy.ToString();
+
+                xml.GetElementsByTagName("hostAuth")[0].InnerText = hostAuth;
+                xml.GetElementsByTagName("databaseAuth")[0].InnerText = databaseAuth;
+                xml.GetElementsByTagName("portAuth")[0].InnerText = portAuth.ToString();
 
                 xml.GetElementsByTagName("userLogin")[0].InnerText = userLogin.ToString();
                 xml.GetElementsByTagName("userPassword")[0].InnerText = userPassword.ToString();
+                xml.GetElementsByTagName("saveCredentials")[0].InnerText = saveCredentials.ToString();
                 xml.GetElementsByTagName("companyID")[0].InnerText = companyID.ToString();
 
                 xml.Save(tw);
