@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:EconomyAdmin.GUI"
         mc:Ignorable="d"
-        Height="800" Width="1200" MinHeight="500" MinWidth="660">
+        Height="768" Width="1024" MinHeight="768" MinWidth="1024">
     <Grid>
         <TabControl>
             <TabItem Header="Přehled">
@@ -132,7 +132,6 @@
 
                     <DockPanel Grid.Column="0" Grid.RowSpan="3">
                         <TextBlock DockPanel.Dock="Top"><Bold>Skladové zásoby:</Bold></TextBlock>
-                        <Button DockPanel.Dock="Bottom" Height="35">Spravovat sklad</Button>
                         <ListView>
                             <ListView.View>
                                 <GridView>
@@ -168,7 +167,7 @@
                             <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1"/>
                             <TextBlock Grid.Row="2">Celková cena:</TextBlock>
                             <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1"/>
-                            <Button Grid.Column="1" Grid.Row="3" Content="Koupit" Height="30" VerticalAlignment="Top"/>
+                            <Button Grid.Column="1" Grid.Row="3" Content="Koupit od státu" Height="30" VerticalAlignment="Top"/>
                         </Grid>
                     </DockPanel>
                     <DockPanel Grid.Column="2" Grid.Row="1">
@@ -190,7 +189,7 @@
                             <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1"/>
                             <TextBlock Grid.Row="2">Celková cena:</TextBlock>
                             <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1"/>
-                            <Button Grid.Column="1" Grid.Row="3" Content="Prodat" Height="30" VerticalAlignment="Top"/>
+                            <Button Grid.Column="1" Grid.Row="3" Content="Prodat státu" Height="30" VerticalAlignment="Top"/>
                         </Grid>
                     </DockPanel>
                     <DockPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2">
@@ -213,7 +212,153 @@
             </TabItem>
             <TabItem Header="Podniky a výroba">
                 <Grid Margin="10,0,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
+                    <DockPanel Grid.Column="0">
+                        <TextBlock DockPanel.Dock="Top"><Bold>Přehled podniků:</Bold></TextBlock>
+                        <ListView>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Název" Width="100"/>
+                                    <GridViewColumn Header="Vytížení %" Width="100"/>
+                                    <GridViewColumn Header="Úroveň" Width="100"/>
+                                    <GridViewColumn Header="Vylepšení" Width="100"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
+                    <DockPanel Grid.Column="1">
+                        <Button DockPanel.Dock="Bottom" Height="35">Dokoupit vše od státu</Button>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.ColumnSpan="2"><Bold>Vybraný podnik:</Bold></TextBlock>
+                                <TextBlock Grid.Row="1">Název:</TextBlock>
+                                <TextBox Grid.Row="1" Grid.Column="1"/>
+                                <TextBlock Grid.Row="2">Úroveň:</TextBlock>
+                                <TextBox Grid.Row="2" Grid.Column="1"/>
+                                <TextBlock Grid.Row="3">Cena vylepšení:</TextBlock>
+                                <TextBox Grid.Row="3" Grid.Column="1"/>
+                                <TextBlock Grid.Row="4">Vylepšit?:</TextBlock>
+                                <CheckBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="5">Produkt:</TextBlock>
+                                <ComboBox Grid.Row="5" Grid.Column="1"/>
+                                <TextBlock Grid.Row="6">Aktuální produkce:</TextBlock>
+                                <TextBox Grid.Row="6" Grid.Column="1"/>
+                                <TextBlock Grid.Row="7">Maximální produkce:</TextBlock>
+                                <TextBox Grid.Row="7" Grid.Column="1"/>
+                                <TextBlock Grid.Row="8">Cena výroby ks:</TextBlock>
+                                <TextBox Grid.Row="8" Grid.Column="1"/>
+                                <TextBlock Grid.Row="9">Celková cena výroby:</TextBlock>
+                                <TextBox Grid.Row="9" Grid.Column="1"/>
+
+                                <Image Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <Label>
+                                    <Bold>Surovina 1 - Název</Bold>
+                                </Label>
+                                <Label>Na skladě</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Spotřeba</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Dokoupit</Label>
+                                <xctk:DecimalUpDown></xctk:DecimalUpDown>
+                                <Label>Cena</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Button>Dokoupit od státu</Button>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0">
+                                <Label>
+                                    <Bold>Surovina 2 - Název</Bold>
+                                </Label>
+                                <Label>Na skladě</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Spotřeba</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Dokoupit</Label>
+                                <xctk:DecimalUpDown></xctk:DecimalUpDown>
+                                <Label>Cena</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Button>Dokoupit od státu</Button>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1">
+                                <Label>
+                                    <Bold>Surovina 3 - Název</Bold>
+                                </Label>
+                                <Label>Na skladě</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Spotřeba</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Dokoupit</Label>
+                                <xctk:DecimalUpDown></xctk:DecimalUpDown>
+                                <Label>Cena</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Button>Dokoupit od státu</Button>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="0">
+                                <Label>
+                                    <Bold>Surovina 4 - Název</Bold>
+                                </Label>
+                                <Label>Na skladě</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Spotřeba</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Dokoupit</Label>
+                                <xctk:DecimalUpDown></xctk:DecimalUpDown>
+                                <Label>Cena</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Button>Dokoupit od státu</Button>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="1">
+                                <Label>
+                                    <Bold>Surovina 5 - Název</Bold>
+                                </Label>
+                                <Label>Na skladě</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Spotřeba</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Label>Dokoupit</Label>
+                                <xctk:DecimalUpDown></xctk:DecimalUpDown>
+                                <Label>Cena</Label>
+                                <TextBox>ReadonlyNumber</TextBox>
+                                <Button>Dokoupit od státu</Button>
+                            </StackPanel>
+                        </Grid>
+                        
+                    </DockPanel>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Vaše nabídky a inzeráty">
