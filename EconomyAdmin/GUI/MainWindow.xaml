@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:EconomyAdmin.GUI"
         mc:Ignorable="d"
-        Height="800" Width="1200" MinHeight="370" MinWidth="500">
+        Height="800" Width="1200" MinHeight="500" MinWidth="660">
     <Grid>
         <TabControl>
             <TabItem Header="Přehled">
@@ -27,7 +28,7 @@
                         <TextBlock Name="companyName" DockPanel.Dock="Top"><Bold>Společnost:</Bold></TextBlock>
                         <TextBlock Name="userName" DockPanel.Dock="Top"><Bold>Správce:</Bold></TextBlock>
                         <TextBlock Name="money" DockPanel.Dock="Top"><Bold>Finance:</Bold></TextBlock>
-                        <TextBlock TextWrapping="Wrap" Name="description" Margin="0,10,0,0"><Bold>Popis společnosti:</Bold> Následuje příkladový popis společnosti za účelen testování UIčka a jeho podoby.</TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Justify" Name="description" Margin="0,10,0,0"><Bold>Popis společnosti:</Bold> Následuje příkladový popis společnosti za účelen testování UIčka a jeho podoby.</TextBlock>
                     </DockPanel>
                     <DockPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
                         <TextBlock DockPanel.Dock="Top"><Bold>Poslední nepřečtené zprávy a události:</Bold></TextBlock>
@@ -118,7 +119,96 @@
             </TabItem>
             <TabItem Header="Sklad">
                 <Grid Margin="10,0,10,5">
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DockPanel Grid.Column="0" Grid.RowSpan="3">
+                        <TextBlock DockPanel.Dock="Top"><Bold>Skladové zásoby:</Bold></TextBlock>
+                        <Button DockPanel.Dock="Bottom" Height="35">Spravovat sklad</Button>
+                        <ListView>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Ikonka" Width="100"/>
+                                    <GridViewColumn Header="Název" Width="100"/>
+                                    <GridViewColumn Header="Počet na skladě" Width="100"/>
+                                    <GridViewColumn Header="Spotřeba" Width="100"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
+                    <Image Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <StackPanel Grid.Column="1" Grid.Row="1">
+                        <TextBlock><Bold>Název zboží</Bold></TextBlock>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Justify">Toto je popis zboží, který je v poznámce o něm, pro ilustrační testovací účely.</TextBlock>
+                    </StackPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="0">
+                        <TextBlock DockPanel.Dock="Top"><Bold>Nákup od státu:</Bold></TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0">Cena za kus:</TextBlock>
+                            <xctk:DecimalUpDown Grid.Row="0" Grid.Column="1"/>
+                            <TextBlock Grid.Row="1">Koupit kusů:</TextBlock>
+                            <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1"/>
+                            <TextBlock Grid.Row="2">Celková cena:</TextBlock>
+                            <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1"/>
+                            <Button Grid.Column="1" Grid.Row="3" Content="Koupit" Height="30" VerticalAlignment="Top"/>
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="1">
+                        <TextBlock DockPanel.Dock="Top"><Bold>Prodej státu:</Bold></TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0">Cena za kus:</TextBlock>
+                            <xctk:DecimalUpDown Grid.Row="0" Grid.Column="1"/>
+                            <TextBlock Grid.Row="1">Prodat kusů:</TextBlock>
+                            <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1"/>
+                            <TextBlock Grid.Row="2">Celková cena:</TextBlock>
+                            <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1"/>
+                            <Button Grid.Column="1" Grid.Row="3" Content="Prodat" Height="30" VerticalAlignment="Top"/>
+                        </Grid>
+                    </DockPanel>
+                    <DockPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2">
+                        <TextBlock DockPanel.Dock="Top"><Bold>Nabídky a inzeráty s vybraným zbožím:</Bold></TextBlock>
+                        <Button DockPanel.Dock="Bottom" Height="35">Nakoupit od ostatních</Button>
+                        <ListView>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Zboží" Width="100"/>
+                                    <GridViewColumn Header="Množství" Width="100"/>
+                                    <GridViewColumn Header="Cena" Width="100"/>
+                                    <GridViewColumn Header="Cena/ks" Width="100"/>
+                                    <GridViewColumn Header="Autor" Width="100"/>
+                                    <GridViewColumn Header="Adresát" Width="100"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Podniky a výroba">
